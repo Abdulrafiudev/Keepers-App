@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import Note from "./components/Note";
 import CreateArea from "./components/CreateArea";
 import "../public/styles.css"
+import { useEffect } from "react";
 
 function App() {
 
@@ -13,7 +14,17 @@ function App() {
       content : ""
     }
   )
-  let [notes, set_notes] = useState([])
+  let [notes, set_notes] = useState(retrieve_data)
+ 
+ 
+  
+  //This tells React to only run the save function only when the dependency array which in this case is the notes has changed
+  useEffect(() => {
+    save(notes)
+  }, [notes])
+
+
+ 
   
   // This function handles the input fields and get the element
   function handle_change(event){
@@ -28,6 +39,7 @@ function App() {
     })
 
   }
+  
 
   // This function handles the form submission
   function handle_click(event){
@@ -39,7 +51,11 @@ function App() {
           keepers_content
         ]
       )
+      
     })
+  
+    
+   
     set_keeper_content({
       title : "",
       content : ""
@@ -60,7 +76,22 @@ function App() {
       })
     )
   })
+
+  
  }
+
+ //This function saves the items in localstorage
+ function save(note){
+  localStorage.setItem(`notes`, JSON.stringify(note))
+ }
+
+ function retrieve_data(){
+  let stored_data = localStorage.getItem(`notes`)
+  
+  return stored_data ? JSON.parse(stored_data) : []
+ }
+
+
 
 
 
