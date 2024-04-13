@@ -20,7 +20,7 @@ function CreateArea(props) {
         
         <textarea name="content" placeholder="Take a note..." rows={display_full_area ? "3" : "1"} onChange={props.change} value={props.content.content} onClick={handle_click}/>
         <Zoom in = {display_full_area}>
-           <Fab> <AddIcon />  </Fab> 
+           <Fab onClick = {props.click}> <AddIcon />  </Fab> 
         </Zoom>
          
       </form>
